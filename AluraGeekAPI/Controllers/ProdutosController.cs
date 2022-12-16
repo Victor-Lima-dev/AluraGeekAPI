@@ -33,11 +33,11 @@ namespace AluraGeekAPI.Controllers
         [HttpPost("Cadastrar")]
         public async Task<ActionResult<Produto>> PostProduto(Produto produto)
         {
-            var verificarCategoria = produto.Categoria;
-            var verificarNome = produto.Nome;
+            var verificarCategoria = produto.Categoria.ToLower();
+            var verificarNome = produto.Nome.ToLower();
             var verificarPreco = produto.Preco;
 
-            string[] categorias = { "StarWars", "Consoles", "Outros"};
+            string[] categorias = { "starwars", "consoles", "outros"};
 
             if (verificarCategoria == null || verificarNome == null || verificarPreco == 0)
             {
@@ -83,11 +83,11 @@ namespace AluraGeekAPI.Controllers
         [HttpPut("Atualizar/{id}")]
         public async Task<ActionResult<Produto>> PutProduto(int id, Produto produto)
         {
-            var verificarCategoria = produto.Categoria;
-            var verificarNome = produto.Nome;
+            var verificarCategoria = produto.Categoria.ToLower();
+            var verificarNome = produto.Nome.ToLower();
             var verificarPreco = produto.Preco;
 
-            string[] categorias = { "StarWars", "Consoles", "Outros" };
+            string[] categorias = { "starwars", "consoles", "outros" };
 
             if (verificarCategoria == null || verificarNome == null || verificarPreco == 0)
             {
