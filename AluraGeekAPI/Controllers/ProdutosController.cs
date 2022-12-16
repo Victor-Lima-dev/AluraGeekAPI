@@ -33,6 +33,28 @@ namespace AluraGeekAPI.Controllers
         [HttpPost("Cadastrar")]
         public async Task<ActionResult<Produto>> PostProduto(Produto produto)
         {
+            var verificarCategoria = produto.Categoria;
+            var verificarNome = produto.Nome;
+            var verificarPreco = produto.Preco;
+
+            string[] categorias = { "StarWars", "Consoles", "Outros"};
+
+            if (verificarCategoria == null || verificarNome == null || verificarPreco == 0)
+            {
+                return BadRequest("Os campos não podem ser nulos");
+            }
+
+            if (verificarPreco < 0)
+            {
+                return BadRequest("O preço não pode ser negativo");
+            }
+
+            if (Array.IndexOf(categorias, verificarCategoria) == -1)
+            {
+                return BadRequest("Categoria inválida");
+            }
+
+
             _context.Produtos.Add(produto);
             await _context.SaveChangesAsync();
 
@@ -61,6 +83,27 @@ namespace AluraGeekAPI.Controllers
         [HttpPut("Atualizar/{id}")]
         public async Task<ActionResult<Produto>> PutProduto(int id, Produto produto)
         {
+            var verificarCategoria = produto.Categoria;
+            var verificarNome = produto.Nome;
+            var verificarPreco = produto.Preco;
+
+            string[] categorias = { "StarWars", "Consoles", "Outros" };
+
+            if (verificarCategoria == null || verificarNome == null || verificarPreco == 0)
+            {
+                return BadRequest("Os campos não podem ser nulos");
+            }
+
+            if (verificarPreco < 0)
+            {
+                return BadRequest("O preço não pode ser negativo");
+            }
+
+            if (Array.IndexOf(categorias, verificarCategoria) == -1)
+            {
+                return BadRequest("Categoria inválida");
+            }
+
             if (id != produto.ProdutoId)
             {
                 return BadRequest();
