@@ -54,7 +54,12 @@ namespace AluraGeekAPI.Controllers
                 return BadRequest("Categoria inválida");
             }
 
-
+            //verificar se o produto ja existe
+            var produtoExistente = await _context.Produtos.FirstOrDefaultAsync(p => p.Nome == produto.Nome && p.Categoria == produto.Categoria && p.Preco == produto.Preco);
+            if (produtoExistente != null)
+            {
+                return BadRequest("Produto já cadastrado");
+            }
             _context.Produtos.Add(produto);
             await _context.SaveChangesAsync();
 
@@ -103,6 +108,13 @@ namespace AluraGeekAPI.Controllers
             {
                 return BadRequest("Categoria inválida");
             }
+
+            var produtoExistente = await _context.Produtos.FirstOrDefaultAsync(p => p.Nome == produto.Nome && p.Categoria == produto.Categoria && p.Preco == produto.Preco);
+            if (produtoExistente != null)
+            {
+                return BadRequest("Produto já cadastrado");
+            }
+
 
             if (id != produto.ProdutoId)
             {
