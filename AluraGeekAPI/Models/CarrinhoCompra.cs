@@ -34,6 +34,7 @@ namespace AluraGeekAPI.Models
         
         public void AdicionarAoCarrinho(Produto produto)
         {
+
             var carrinhoItem = _context.CarrinhoItens.FirstOrDefault
                 (s => s.Produto.ProdutoId == produto.ProdutoId 
             && s.CarrinhoCompraId == CarrinhoCompraId);

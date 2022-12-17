@@ -33,7 +33,49 @@ namespace AluraGeekAPI.Controllers
             return Ok(carrinho);
         }
 
+        //metodo para adicionar um produto ao carrinho
+        //Post
+        [HttpPost("AdicionarAoCarrinho/{id}")]
+        public async Task<ActionResult<CarrinhoCompra>> AdicionarCarrinho(int id)
+        {
+            var produto = await _context.Produtos.FirstOrDefaultAsync(c => c.ProdutoId == id);
 
+            _carrinhoCompra.AdicionarAoCarrinho(produto);
+
+            return Ok(_carrinhoCompra.GetCarrinhoItens());
+        }
+
+        //metodo para remover um produto do carrinho
+        //Post
+        [HttpPost("RemoverDoCarrinho/{id}")]
+        public async Task<ActionResult<CarrinhoCompra>> RemoverCarrinho(int id)
+        {
+            var produto = await _context.Produtos.FirstOrDefaultAsync(c => c.ProdutoId == id);
+
+            _carrinhoCompra.RemoverDoCarrinho(produto);
+
+            return Ok(_carrinhoCompra.GetCarrinhoItens());
+        }
+
+        //metodo para limpar carrinho
+        //Post
+        [HttpPost("LimparCarrinho")]
+        public async Task<ActionResult<CarrinhoCompra>> LimparCarrinho()
+        {
+            _carrinhoCompra.LimparCarrinho();
+
+            return Ok(_carrinhoCompra.GetCarrinhoItens());
+        }
+
+        //metodo para somar carrinho
+        //Post
+        [HttpPost("SomarCarrinho")]
+        public async Task<ActionResult<CarrinhoCompra>> SomarCarrinho()
+        {
+            var total = _carrinhoCompra.GetCarrinhoCompraTotal();
+
+            return Ok(total);
+        }
 
     }
 }

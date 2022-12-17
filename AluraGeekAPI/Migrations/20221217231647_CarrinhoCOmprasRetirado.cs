@@ -5,22 +5,11 @@
 namespace AluraGeekAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class teste65 : Migration
+    public partial class CarrinhoCOmprasRetirado : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "CarrinhoCompras",
-                columns: table => new
-                {
-                    CarrinhoCompraId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarrinhoCompras", x => x.CarrinhoCompraId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Produtos",
                 columns: table => new
@@ -44,28 +33,17 @@ namespace AluraGeekAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProdutoId = table.Column<int>(type: "int", nullable: true),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
-                    CarrinhoCompraId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CarrinhoCompraId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CarrinhoItens", x => x.CarrinhoItemId);
-                    table.ForeignKey(
-                        name: "FK_CarrinhoItens_CarrinhoCompras_CarrinhoCompraId",
-                        column: x => x.CarrinhoCompraId,
-                        principalTable: "CarrinhoCompras",
-                        principalColumn: "CarrinhoCompraId",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CarrinhoItens_Produtos_ProdutoId",
                         column: x => x.ProdutoId,
                         principalTable: "Produtos",
                         principalColumn: "ProdutoId");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CarrinhoItens_CarrinhoCompraId",
-                table: "CarrinhoItens",
-                column: "CarrinhoCompraId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CarrinhoItens_ProdutoId",
@@ -78,9 +56,6 @@ namespace AluraGeekAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CarrinhoItens");
-
-            migrationBuilder.DropTable(
-                name: "CarrinhoCompras");
 
             migrationBuilder.DropTable(
                 name: "Produtos");

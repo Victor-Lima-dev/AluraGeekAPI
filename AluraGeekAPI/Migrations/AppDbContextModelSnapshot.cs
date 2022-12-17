@@ -22,16 +22,6 @@ namespace AluraGeekAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AluraGeekAPI.Models.CarrinhoCompra", b =>
-                {
-                    b.Property<string>("CarrinhoCompraId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CarrinhoCompraId");
-
-                    b.ToTable("CarrinhoCompras");
-                });
-
             modelBuilder.Entity("AluraGeekAPI.Models.CarrinhoItem", b =>
                 {
                     b.Property<int>("CarrinhoItemId")
@@ -42,7 +32,7 @@ namespace AluraGeekAPI.Migrations
 
                     b.Property<string>("CarrinhoCompraId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProdutoId")
                         .HasColumnType("int");
@@ -51,8 +41,6 @@ namespace AluraGeekAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CarrinhoItemId");
-
-                    b.HasIndex("CarrinhoCompraId");
 
                     b.HasIndex("ProdutoId");
 
@@ -83,22 +71,11 @@ namespace AluraGeekAPI.Migrations
 
             modelBuilder.Entity("AluraGeekAPI.Models.CarrinhoItem", b =>
                 {
-                    b.HasOne("AluraGeekAPI.Models.CarrinhoCompra", null)
-                        .WithMany("CarrinhoItens")
-                        .HasForeignKey("CarrinhoCompraId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AluraGeekAPI.Models.Produto", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId");
 
                     b.Navigation("Produto");
-                });
-
-            modelBuilder.Entity("AluraGeekAPI.Models.CarrinhoCompra", b =>
-                {
-                    b.Navigation("CarrinhoItens");
                 });
 #pragma warning restore 612, 618
         }
