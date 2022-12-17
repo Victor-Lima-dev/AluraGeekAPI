@@ -12,6 +12,8 @@ namespace AluraGeekAPI.Context
 
         //mapear classe produto
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<CarrinhoItem> CarrinhoItens { get; set; }
+        public DbSet<CarrinhoCompra> CarrinhoCompras { get; set; }
 
     }
 }

@@ -20,17 +20,17 @@ namespace AluraGeekAPI.Controllers
 
         //metodo para retornar um carrinhoCompra assincrono
         //GET /carrinhoCompra/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CarrinhoCompra>> GetCarrinhoCompra(int id)
-        {
-            var carrinhoCompra = await _context.CarrinhoCompra.FindAsync(id);
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<CarrinhoCompra>> GetCarrinhoCompra(int id)
+        //{
+        //    var carrinhoCompra = await _context.CarrinhoCompra.FindAsync(id);
 
-            if (carrinhoCompra == null)
-            {
-                return NotFound();
-            }
+        //    if (carrinhoCompra == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return carrinhoCompra;
-        }
+        //    return carrinhoCompra;
+        //}
     }
 }
