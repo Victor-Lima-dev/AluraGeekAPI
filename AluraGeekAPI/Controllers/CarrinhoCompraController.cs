@@ -19,9 +19,21 @@ namespace AluraGeekAPI.Controllers
             _context = context;
             _carrinhoCompra = carrinhoCompra;
         }
-      
 
-        
-        
+        //metodo para ver um carrinho
+        //GET /carrinhoCompra/VerCarrinho
+        [HttpGet("VerCarrinho")]
+        public async Task<ActionResult<CarrinhoCompra>> GetCarrinhoItens()
+        {
+            var carrinho =  _carrinhoCompra.GetCarrinhoItens();
+            if (carrinho == null)
+            {
+                return NotFound("Carrinho não encontrado");
+            }
+            return Ok(carrinho);
+        }
+
+
+
     }
 }

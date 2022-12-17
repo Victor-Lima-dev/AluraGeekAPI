@@ -24,11 +24,8 @@ namespace AluraGeekAPI.Migrations
 
             modelBuilder.Entity("AluraGeekAPI.Models.CarrinhoCompra", b =>
                 {
-                    b.Property<int>("CarrinhoCompraId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarrinhoCompraId"));
+                    b.Property<string>("CarrinhoCompraId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("CarrinhoCompraId");
 
@@ -43,10 +40,11 @@ namespace AluraGeekAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarrinhoItemId"));
 
-                    b.Property<int?>("CarrinhoCompraId")
-                        .HasColumnType("int");
+                    b.Property<string>("CarrinhoCompraId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ProdutoId")
+                    b.Property<int?>("ProdutoId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
@@ -87,13 +85,13 @@ namespace AluraGeekAPI.Migrations
                 {
                     b.HasOne("AluraGeekAPI.Models.CarrinhoCompra", null)
                         .WithMany("CarrinhoItens")
-                        .HasForeignKey("CarrinhoCompraId");
+                        .HasForeignKey("CarrinhoCompraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AluraGeekAPI.Models.Produto", "Produto")
                         .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProdutoId");
 
                     b.Navigation("Produto");
                 });

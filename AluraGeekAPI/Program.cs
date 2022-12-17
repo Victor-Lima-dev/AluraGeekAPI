@@ -13,11 +13,18 @@ builder.Services.AddSwaggerGen();
 //registrar banco de dados
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //registrar o carrinhocompra
-builder.Services.AddScoped<CarrinhoCompra>();
+builder.Services.AddScoped<CarrinhoCompra>(sp => CarrinhoCompra.GetCarrinho(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-//addmemorycache
-builder.Services.AddMemoryCache();
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 //addsession
 builder.Services.AddSession();
 
@@ -31,7 +38,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllers();

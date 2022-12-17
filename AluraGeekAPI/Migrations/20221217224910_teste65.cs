@@ -5,7 +5,7 @@
 namespace AluraGeekAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class CarrinhoCompraECarrinhoItem : Migration
+    public partial class teste65 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,12 +14,26 @@ namespace AluraGeekAPI.Migrations
                 name: "CarrinhoCompras",
                 columns: table => new
                 {
-                    CarrinhoCompraId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                    CarrinhoCompraId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CarrinhoCompras", x => x.CarrinhoCompraId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Produtos",
+                columns: table => new
+                {
+                    ProdutoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Categoria = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produtos", x => x.ProdutoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -28,9 +42,9 @@ namespace AluraGeekAPI.Migrations
                 {
                     CarrinhoItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProdutoId = table.Column<int>(type: "int", nullable: false),
+                    ProdutoId = table.Column<int>(type: "int", nullable: true),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
-                    CarrinhoCompraId = table.Column<int>(type: "int", nullable: true)
+                    CarrinhoCompraId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,13 +53,13 @@ namespace AluraGeekAPI.Migrations
                         name: "FK_CarrinhoItens_CarrinhoCompras_CarrinhoCompraId",
                         column: x => x.CarrinhoCompraId,
                         principalTable: "CarrinhoCompras",
-                        principalColumn: "CarrinhoCompraId");
+                        principalColumn: "CarrinhoCompraId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CarrinhoItens_Produtos_ProdutoId",
                         column: x => x.ProdutoId,
                         principalTable: "Produtos",
-                        principalColumn: "ProdutoId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ProdutoId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -67,6 +81,9 @@ namespace AluraGeekAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "CarrinhoCompras");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
         }
     }
 }
