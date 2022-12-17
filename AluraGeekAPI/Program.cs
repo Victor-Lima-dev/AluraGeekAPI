@@ -1,4 +1,5 @@
 using AluraGeekAPI.Context;
+using AluraGeekAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //registrar banco de dados
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//registrar o carrinhocompra
+builder.Services.AddScoped<CarrinhoCompra>();
+
+//addmemorycache
+builder.Services.AddMemoryCache();
+//addsession
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -22,7 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllers();
