@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //registrar o carrinhocompra
 builder.Services.AddScoped<CarrinhoCompra>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //addmemorycache
 builder.Services.AddMemoryCache();
