@@ -13,8 +13,24 @@ namespace AluraGeekAPI.Models
             _context = context;
         }
 
-        public int CarrinhoCompraId { get; set; }
+        public string CarrinhoCompraId { get; set; }
         public List<CarrinhoItem> CarrinhoItens { get; set; }
+        
+        public static CarrinhoCompra GetCarrinho(IServiceProvider services)
+        {
+            //criar sessão
+            ISession session = 
+                services.GetRequiredService<IHttpContextAccessor>()?
+                .HttpContext.Session;
+            //criar contexto
+            var context = services.GetService<AppDbContext>();
+            //pegar id da sessão
+            string carrinhoId = session.GetString("CarrinhoId") ?? Guid.NewGuid().ToString();
+            //salvar id da sessão
+            session.SetString("CarrinhoId", carrinhoId);
+            //retornar carrinho
+            return new CarrinhoCompra(context) { CarrinhoCompraId = carrinhoId };
+        }
         
         public void AdicionarAoCarrinho(Produto produto)
         {

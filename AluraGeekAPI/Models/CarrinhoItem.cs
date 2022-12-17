@@ -6,6 +6,6 @@
         public Produto? Produto { get; set; } 
         public int Quantidade { get; set; }
 
-        public int CarrinhoCompraId { get; set; }
+        public string CarrinhoCompraId { get; set; }
     }
 }
