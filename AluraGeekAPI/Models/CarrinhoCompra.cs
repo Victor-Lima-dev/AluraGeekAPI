@@ -22,8 +22,8 @@ namespace AluraGeekAPI.Models
             ISession session = 
                 services.GetRequiredService<IHttpContextAccessor>()?
                 .HttpContext.Session;
-            //criar contexto
-            var context = services.GetService<AppDbContext>();
+           //criar contexto
+             var context = services.GetService<AppDbContext>();
             //pegar id da sessão
             string carrinhoId = session.GetString("CarrinhoId") ?? Guid.NewGuid().ToString();
             //salvar id da sessão

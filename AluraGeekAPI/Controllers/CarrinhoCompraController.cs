@@ -77,5 +77,9 @@ namespace AluraGeekAPI.Controllers
             return Ok(total);
         }
 
+        //metodo para listar os produtos do carrinho
+        
+        
+
     }
 }
