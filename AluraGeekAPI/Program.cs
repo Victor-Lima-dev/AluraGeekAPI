@@ -44,6 +44,7 @@ builder.Services.AddSession();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -51,7 +52,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseCors("CorsPolicy");
+
+
+
+
+
+
 
 app.UseHttpsRedirection();
 

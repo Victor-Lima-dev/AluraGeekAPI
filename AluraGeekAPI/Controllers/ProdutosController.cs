@@ -72,11 +72,12 @@ namespace AluraGeekAPI.Controllers
         public async Task<ActionResult<Produto>> DeleteProduto(int id)
         {
             var produto = await _context.Produtos.FindAsync(id);
+            var produtoItem = await _context.CarrinhoItens.FirstOrDefaultAsync(p => p.Produto.ProdutoId == id);
             if (produto == null)
             {
                 return NotFound();
             }
-
+            _context.CarrinhoItens.Remove(produtoItem);
             _context.Produtos.Remove(produto);
             await _context.SaveChangesAsync();
 
