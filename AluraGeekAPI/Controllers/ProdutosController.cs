@@ -68,7 +68,7 @@ namespace AluraGeekAPI.Controllers
 
         //metodo para deletar um produto assincrono
         //DELETE /produtos/Deletar
-        [HttpDelete("Deletar")]
+        [HttpDelete("Deletar/{id}")]
         public async Task<ActionResult<Produto>> DeleteProduto(int id)
         {
             var produto = await _context.Produtos.FindAsync(id);
@@ -81,7 +81,7 @@ namespace AluraGeekAPI.Controllers
             _context.Produtos.Remove(produto);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok("Item excluido");
         }
 
         //metodo para atualizar um produto assincrono
@@ -117,10 +117,10 @@ namespace AluraGeekAPI.Controllers
             }
 
 
-            if (id != produto.ProdutoId)
-            {
-                return BadRequest();
-            }
+            //if (id != produto.ProdutoId)
+            //{
+            //    return BadRequest("erro de referencia");
+            //}
 
             _context.Entry(produto).State = EntityState.Modified;
              await _context.SaveChangesAsync();
