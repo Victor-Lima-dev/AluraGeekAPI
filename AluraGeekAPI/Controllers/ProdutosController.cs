@@ -77,8 +77,15 @@ namespace AluraGeekAPI.Controllers
             {
                 return NotFound();
             }
+
+            if (produtoItem != null)
+            {
             _context.CarrinhoItens.Remove(produtoItem);
+               
+            }
+
             _context.Produtos.Remove(produto);
+
             await _context.SaveChangesAsync();
 
             return Ok("Item excluido");
