@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddScoped<CarrinhoCompra>(sp => CarrinhoCompra.GetCarrinho(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+
 builder.Services.AddDistributedMemoryCache();
 //adicionar identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
